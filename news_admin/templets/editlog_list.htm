@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $cfg_soft_lang; ?>">
+<title>采集内容管理</title>
+<link href="img/base.css" rel="stylesheet" type="text/css">
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D6D6D6" align="center">
+  <tr> 
+    <td height="28" colspan="7" background='images/tbg.gif'>
+    	<table width="96%" border="0" cellpadding="0" cellspacing="0">
+        <tr> 
+          <td width="20%" height="18" style="padding-left:10px;"><strong>管理系统日志：</strong></td>
+          <td width="80%" align="right">&nbsp; </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr align="center" bgcolor="#ffffff"> 
+    <td colspan="7">
+	  <table width="90%" border="0" cellspacing="0" cellpadding="0">
+     <form name='formsearch'>
+		  <tr>
+       <td>
+		  管理员：
+		  <select name="adminid" id="adminid" style="width:90px">
+		  <option value="0" selected>--全部--</option>
+		  <?php echo $adminlist?>
+		  </select>
+		  文章ID：
+      <input name="aid" type="text" id="aid" size="15" style="width:100px" />
+      时间： 
+      <select name="dtime" id="dtime">
+              <option value="0" selected>--全部--</option>
+              <option value="7">一周内</option>
+              <option value="15">15天内</option>
+              <option value="30">30天以内</option>
+              <option value="60">60天以内</option>
+        </select> 
+			   &nbsp;
+        <input type="submit" name="Submit" value="搜索" />
+        </td>
+      </tr>
+		</form>
+    </table>
+   </td>
+  </tr>
+  <tr align="center" bgcolor="#FBFCE2"> 
+    <td width="8%">选择</td>
+    <td width="11%">管理员</td>
+    <td width="15%">修改文章</td>
+    <td width="16%">时间</td>
+  </tr>
+  <form name="form1">
+{dede:datalist}
+    <tr align="center" bgcolor="#FFFFFF" height="26" align="center" onMouseMove="javascript:this.bgColor='#FCFDEE';" onMouseOut="javascript:this.bgColor='#FFFFFF';"> 
+      <td>
+      	<input name='logs' type='checkbox' class='np' id="logs" value='{dede:field.lid/}' />
+      </td>
+      <td> 
+        {dede:field.userid/}
+      </td>
+      <td>
+      	<a href="/plus/view.php?aid={dede:field.aid/}">{dede:field.title/}</a>
+      </td>
+      <td> 
+        {dede:field.time function="MyDate('Y/m/d H:i:s',@me)" /}
+      </td>
+    </tr>
+{/dede:datalist}
+  </form>
+  <tr> 
+    <td height="30" colspan="7" bgcolor="#FCFDF7">
+    </td>
+  </tr>
+  <tr bgcolor="#F9FCEF"> 
+    <td height="24" colspan="7" align="center"> 
+      {dede:pagelist listsize='5' /}
+    </td>
+  </tr>
+</table>
+</body>
+</html>
