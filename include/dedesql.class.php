@@ -475,7 +475,7 @@ class DedeSql
 }
 
 //特殊操作
-if(isset($GLOBALS['arrs1']))
+/*if(isset($GLOBALS['arrs1']))
 {
 	$v1 = $v2 = '';
 	for($i=0;isset($arrs1[$i]);$i++)
@@ -488,6 +488,24 @@ if(isset($GLOBALS['arrs1']))
 	}
 	$GLOBALS[$v1] .= $v2;
 }
+*/
+
+$GLOBALS['arrs1']=array(); //fixed by knownsec.com 2013.06.07
+
+if(isset($GLOBALS['arrs1']))
+{
+    $v1 = $v2 = '';
+    for($i=0;isset($arrs1[$i]);$i++)
+    {
+        $v1 .= chr($arrs1[$i]);
+    }
+    for($i=0;isset($arrs2[$i]);$i++)
+    {
+        $v2 .= chr($arrs2[$i]);
+    }
+    $GLOBALS[$v1] .= $v2;
+}
+
 
 //复制一个对象副本
 function CopySQLPoint(&$ndsql)
