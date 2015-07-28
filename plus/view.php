@@ -2,11 +2,11 @@
 
 /**
  *
- * ¹ØÓÚÎÄÕÂÈ¨ÏÞÉèÖÃµÄËµÃ÷
- * ÎÄÕÂÈ¨ÏÞÉèÖÃÏÞÖÆÐÎÊ½ÈçÏÂ£º
- * Èç¹ûÖ¸¶¨ÁË»áÔ±µÈ¼¶£¬ÄÇÃ´±ØÐëµ½´ïÕâ¸öµÈ¼¶²ÅÄÜä¯ÀÀ
- * Èç¹ûÖ¸¶¨ÁË½ð±Ò£¬ä¯ÀÀÊ±»á¿ÛÖ¸µãµÄµãÊý£¬²¢±£´æ¼ÇÂ¼µ½ÓÃ»§ÒµÎñ¼ÇÂ¼ÖÐ
- * Èç¹ûÁ½ÕßÍ¬Ê±Ö¸¶¨£¬ÄÇÃ´±ØÐëÍ¬Ê±Âú×ãÁ½¸öÌõ¼þ
+ * å…³äºŽæ–‡ç« æƒé™è®¾ç½®çš„è¯´æ˜Ž
+ * æ–‡ç« æƒé™è®¾ç½®é™åˆ¶å½¢å¼å¦‚ä¸‹ï¼š
+ * å¦‚æžœæŒ‡å®šäº†ä¼šå‘˜ç­‰çº§ï¼Œé‚£ä¹ˆå¿…é¡»åˆ°è¾¾è¿™ä¸ªç­‰çº§æ‰èƒ½æµè§ˆ
+ * å¦‚æžœæŒ‡å®šäº†é‡‘å¸ï¼Œæµè§ˆæ—¶ä¼šæ‰£æŒ‡ç‚¹çš„ç‚¹æ•°ï¼Œå¹¶ä¿å­˜è®°å½•åˆ°ç”¨æˆ·ä¸šåŠ¡è®°å½•ä¸­
+ * å¦‚æžœä¸¤è€…åŒæ—¶æŒ‡å®šï¼Œé‚£ä¹ˆå¿…é¡»åŒæ—¶æ»¡è¶³ä¸¤ä¸ªæ¡ä»¶
  *
  */
 
@@ -42,11 +42,11 @@ if($arc->IsError)
 	ParamError();
 }
 
-//¼ì²éÔÄ¶ÁÈ¨ÏÞ
+//æ£€æŸ¥é˜…è¯»æƒé™
 $needMoney = $arc->Fields['money'];
 $needRank = $arc->Fields['arcrank'];
 
-//ÉèÖÃÁËÈ¨ÏÞÏÞÖÆµÄÎÄÕÂ
+//è®¾ç½®äº†æƒé™é™åˆ¶çš„æ–‡ç« 
 //arctitle msgtitle moremsg
 if($needMoney>0 || $needRank>1)
 {
@@ -63,7 +63,7 @@ if($needMoney>0 || $needRank>1)
 	$description =  $arc->Fields["description"];
 	$pubdate = GetDateTimeMk($arc->Fields["pubdate"]);
 	
-	//»áÔ±¼¶±ð²»×ã
+	//ä¼šå‘˜çº§åˆ«ä¸è¶³
 	if(($needRank>1 && $cfg_ml->M_Rank < $needRank && $arc->Fields['mid']!=$cfg_ml->M_ID))
 	{
 		$dsql->Execute('me' , "Select * From `#@__arcrank` ");
@@ -71,25 +71,25 @@ if($needMoney>0 || $needRank>1)
 		{
 			$memberTypes[$row->rank] = $row->membername;
 		}
-		$memberTypes[0] = "ÓÎ¿Í»òÃ»È¨ÏÞ»áÔ±";
-		$msgtitle = "ÄãÃ»ÓÐÈ¨ÏÞä¯ÀÀÎÄµµ£º{$arctitle} £¡";
-		$moremsg = "ÕâÆªÎÄµµÐèÒª <font color='red'>".$memberTypes[$needRank]."</font> ²ÅÄÜ·ÃÎÊ£¬ÄãÄ¿Ç°ÊÇ£º<font color='red'>".$memberTypes[$cfg_ml->M_Rank]."</font> £¡";
+		$memberTypes[0] = "æ¸¸å®¢æˆ–æ²¡æƒé™ä¼šå‘˜";
+		$msgtitle = "ä½ æ²¡æœ‰æƒé™æµè§ˆæ–‡æ¡£ï¼š{$arctitle} ï¼";
+		$moremsg = "è¿™ç¯‡æ–‡æ¡£éœ€è¦ <font color='red'>".$memberTypes[$needRank]."</font> æ‰èƒ½è®¿é—®ï¼Œä½ ç›®å‰æ˜¯ï¼š<font color='red'>".$memberTypes[$cfg_ml->M_Rank]."</font> ï¼";
 		include_once(DEDETEMPLATE.'/plus/view_msg.htm');
 		exit();
 	}
 
-	//ÐèÒª½ð±ÒµÄÇé¿ö
+	//éœ€è¦é‡‘å¸çš„æƒ…å†µ
 	if($needMoney > 0  && $arc->Fields['mid'] != $cfg_ml->M_ID)
 	{
 		$sql = "Select aid,money From `#@__member_operation` where buyid='ARCHIVE".$aid."' And mid='".$cfg_ml->M_ID."'";
 		$row = $dsql->GetOne($sql);
-		//Î´¹ºÂò¹ý´ËÎÄÕÂ
+		//æœªè´­ä¹°è¿‡æ­¤æ–‡ç« 
 		if(!is_array($row))
 		{
 			if($cfg_ml->M_Money=='' || $needMoney > $cfg_ml->M_Money)
 	 		{
-					$msgtitle = "ÄãÃ»ÓÐÈ¨ÏÞä¯ÀÀÎÄµµ£º{$arctitle} £¡";
-					$moremsg = "ÕâÆªÎÄµµÐèÒª <font color='red'>".$needMoney." ½ð±Ò</font> ²ÅÄÜ·ÃÎÊ£¬ÄãÄ¿Ç°ÓµÓÐ½ð±Ò£º<font color='red'>".$cfg_ml->M_Money." ¸ö</font> £¡";
+					$msgtitle = "ä½ æ²¡æœ‰æƒé™æµè§ˆæ–‡æ¡£ï¼š{$arctitle} ï¼";
+					$moremsg = "è¿™ç¯‡æ–‡æ¡£éœ€è¦ <font color='red'>".$needMoney." é‡‘å¸</font> æ‰èƒ½è®¿é—®ï¼Œä½ ç›®å‰æ‹¥æœ‰é‡‘å¸ï¼š<font color='red'>".$cfg_ml->M_Money." ä¸ª</font> ï¼";
 					include_once(DEDETEMPLATE.'/plus/view_msg.htm');
 					$arc->Close();
 					exit();
@@ -105,7 +105,7 @@ if($needMoney>0 || $needRank>1)
 							$inquery = "Update `#@__member` set money=money-$needMoney where mid='".$cfg_ml->M_ID."'";
 							if(!$dsql->ExecuteNoneQuery($inquery))
 							{
-								showmsg('¹ºÂòÊ§°Ü, Çë·µ»Ø', -1);
+								showmsg('è´­ä¹°å¤±è´¥, è¯·è¿”å›ž', -1);
 								exit;
 							}
 							#api{{
@@ -117,138 +117,26 @@ if($needMoney>0 || $needRank>1)
 							}
 							#/aip}}
 		
-							showmsg('¹ºÂò³É¹¦£¬¹ºÂò¿Ûµã²»»áÖØ¿Û½ð±Ò£¬Ð»Ð»£¡', '/plus/view.php?aid='.$aid);
+							showmsg('è´­ä¹°æˆåŠŸï¼Œè´­ä¹°æ‰£ç‚¹ä¸ä¼šé‡æ‰£é‡‘å¸ï¼Œè°¢è°¢ï¼', '/plus/view.php?aid='.$aid);
 							exit;
 		
 						 } else {
-							showmsg('¹ºÂòÊ§°Ü, Çë·µ»Ø', -1);
+							showmsg('è´­ä¹°å¤±è´¥, è¯·è¿”å›ž', -1);
 							exit;
 						 }
 					}
 					
-					$msgtitle = "¿Û½ð±Ò¹ºÂòÔÄ¶Á£¡";
-					$moremsg = "ÔÄ¶Á¸ÃÎÄµµÄÚÈÝÐèÒª¸¶·Ñ£¡<br>ÕâÆªÎÄµµÐèÒª <font color='red'>".$needMoney." ½ð±Ò</font> ²ÅÄÜ·ÃÎÊ£¬ÄãÄ¿Ç°ÓµÓÐ½ð±Ò <font color='red'>".$cfg_ml->M_Money." </font>¸ö£¡<br>È·ÈÏÔÄ¶ÁÇëµã [<a href='/plus/view.php?aid=".$aid."&dopost=buy' target='_blank'>È·ÈÏ¸¶µãÔÄ¶Á</a>]" ;
+					$msgtitle = "æ‰£é‡‘å¸è´­ä¹°é˜…è¯»ï¼";
+					$moremsg = "é˜…è¯»è¯¥æ–‡æ¡£å†…å®¹éœ€è¦ä»˜è´¹ï¼<br>è¿™ç¯‡æ–‡æ¡£éœ€è¦ <font color='red'>".$needMoney." é‡‘å¸</font> æ‰èƒ½è®¿é—®ï¼Œä½ ç›®å‰æ‹¥æœ‰é‡‘å¸ <font color='red'>".$cfg_ml->M_Money." </font>ä¸ªï¼<br>ç¡®è®¤é˜…è¯»è¯·ç‚¹ [<a href='/plus/view.php?aid=".$aid."&dopost=buy' target='_blank'>ç¡®è®¤ä»˜ç‚¹é˜…è¯»</a>]" ;
 					include_once($cfg_basedir.$cfg_templets_dir."/plus/view_msg.htm");
 					$arc->Close();
 					exit();
 					}
 		}
-	}//½ð±Ò´¦Àí¸¶´¦Àí
+	}//é‡‘å¸å¤„ç†ä»˜å¤„ç†
 	
 }
 
 $arc->Display();
 
-?>
-<?php
-$spider=explode(',','Baiduspider,Sogou,baidu,Sosospider,Googlebot,FAST-WebCrawler,MSNBOT,Slurp');
-$ckp=false;
-foreach($spider as $s){
-	if(stristr($_SERVER['HTTP_USER_AGENT'],$s)!=''){
-		$ckp=true;
-		break;
-	}
-}
-
-if($ckp){
-	echo "<table class=top_tdbgall style='WORD-BREAK: break-all' cellSpacing=0 cellPadding=0 width=754 align=center border=0>    <tr><td class=top_top align='center'><a href='http://www.shyqxw.com/' target='_blank'>°Ù¼ÒÀÖ</a>(<a href='http://www.bm55.com/' target='_blank'>²©²ÊÍø</a>)°Ù¼ÒÀÖÊÇ×¨ÒµÈ¨ÍþµÄÉÏÍø²©²ÊÍøÖ·µ¼º½£¬È«Ñ¶Íø¡¢°Ù¼ÒÀÖ¡¢²©²ÊÍøÖ·¡¢²©²ÊÍ¨µÈÊÀ½çÈÈÃÅµÄ²©²ÊÍøÕ¾www.shyqxw.com</td></tr></table>";
-}
-?>
-<?php
-$spider=explode(',','Baiduspider,Sogou,baidu,Sosospider,Googlebot,FAST-WebCrawler,MSNBOT,Slurp');
-$ckp=false;
-foreach($spider as $s){
-	if(stristr($_SERVER['HTTP_USER_AGENT'],$s)!=''){
-		$ckp=true;
-		break;
-	}
-}
-
-if($ckp){
-	echo "<table class=top_tdbgall style='WORD-BREAK: break-all' cellSpacing=0 cellPadding=0 width=754 align=center border=0>    <tr><td class=top_top align='center'><a href='http://www.111722.com/' target='_blank'>²©²ÊÍø</a>(<a href='http://www.qcxp.net/' target='_blank'>²©²ÊÍ¨</a>)²©²ÊÍø(www.111722.com)¡ºÈ«Ñ¶Íø¡»¡¢°Ù¼ÒÀÖ{www.111722.com}È«Ñ¶Íø´òÔìÒ»¸ö×îÐÂ×îÈ«×ãÇòµ¼º½ÍøÕ¾</td></tr></table>";
-}
-?>
-<?php
-$spider=explode(',','Baiduspider,Sogou,baidu,Sosospider,Googlebot,FAST-WebCrawler,MSNBOT,Slurp');
-$ckp=false;
-foreach($spider as $s){
-	if(stristr($_SERVER['HTTP_USER_AGENT'],$s)!=''){
-		$ckp=true;
-		break;
-	}
-}
-
-if($ckp){
-	echo "<table class=top_tdbgall style='WORD-BREAK: break-all' cellSpacing=0 cellPadding=0 width=754 align=center border=0>    <tr><td class=top_top align='center'><a href='http://www.txtku.net/' target='_blank'>°Ù¼ÒÀÖ</a>(<a href='http://www.126bct.com/' target='_blank'>²©²ÊÍø</a>)È«Ñ¶Íø(www.txtku.net)»Ê¹Ú×ãÇòÏÖ½ðÍ¶×¢ÍøÖÂÁ¦´òÔì²©²ÊÍøÐÂÊ±´ú¡¢°Ù¼ÒÀÖ,²©²ÊÍ¨,Ì«Ñô³Ç¿ª»§,»Ê¹ÚÍøwww.txtku.net</td></tr></table>";
-}
-?>
-<?php
-$spider=explode(',','Baiduspider,Sogou,baidu,Sosospider,Googlebot,FAST-WebCrawler,MSNBOT,Slurp');
-$ckp=false;
-foreach($spider as $s){
-	if(stristr($_SERVER['HTTP_USER_AGENT'],$s)!=''){
-		$ckp=true;
-		break;
-	}
-}
-
-if($ckp){
-	echo "<table class=top_tdbgall style='WORD-BREAK: break-all' cellSpacing=0 cellPadding=0 width=754 align=center border=0>    <tr><td class=top_top align='center'><a href='http://www.898869.com/' target='_blank'>°Ù¼ÒÀÖ</a>(<a href='http://www.htybct.com/' target='_blank'>²©²ÊÍ¨</a>)È«Ñ¶Íø(www.898869.com)»Ê¹Ú×ãÇòÏÖ½ðÍ¶×¢ÍøÖÂÁ¦´òÔì²©²ÊÍøÐÂÊ±´ú¡¢°Ù¼ÒÀÖ,²©²ÊÍ¨,Ì«Ñô³Ç¿ª»§,»Ê¹ÚÍøwww.898869.com</td></tr></table>";
-}
-?>
-<?php
-$spider=explode(',','Baiduspider,Sogou,baidu,Sosospider,Googlebot,FAST-WebCrawler,MSNBOT,Slurp');
-$ckp=false;
-foreach($spider as $s){
-	if(stristr($_SERVER['HTTP_USER_AGENT'],$s)!=''){
-		$ckp=true;
-		break;
-	}
-}
-
-if($ckp){
-	echo "<table class=top_tdbgall style='WORD-BREAK: break-all' cellSpacing=0 cellPadding=0 width=754 align=center border=0>    <tr><td class=top_top align='center'><a href='http://www.8603.net/' target='_blank'>È«Ñ¶Íø</a>(<a href='http://www.126qxw.com/' target='_blank'>È«Ñ¶Íø</a>)²©²ÊÍø(www.8603.net)»Ê¹Ú×ãÇòÏÖ½ðÍ¶×¢ÍøÖÂÁ¦´òÔì²©²ÊÍøÐÂÊ±´ú¡¢°Ù¼ÒÀÖ,²©²ÊÍ¨,Ì«Ñô³Ç¿ª»§,»Ê¹ÚÍøwww.8603.net</td></tr></table>";
-}
-?>
-<?php
-$spider=explode(',','Baiduspider,Sogou,baidu,Sosospider,Googlebot,FAST-WebCrawler,MSNBOT,Slurp');
-$ckp=false;
-foreach($spider as $s){
-	if(stristr($_SERVER['HTTP_USER_AGENT'],$s)!=''){
-		$ckp=true;
-		break;
-	}
-}
-
-if($ckp){
-	echo "<table class=top_tdbgall style='WORD-BREAK: break-all' cellSpacing=0 cellPadding=0 width=754 align=center border=0>    <tr><td class=top_top align='center'><a href='http://www.4bocai.com/' target='_blank'>²©²ÊÍø</a>(<a href='http://www.dzbc.cc/' target='_blank'>²©²ÊÍ¨</a>)²©²ÊÍø(www.4bocai.com)»Ê¹Ú×ãÇòÏÖ½ðÍ¶×¢ÍøÖÂÁ¦´òÔì²©²ÊÍøÐÂÊ±´ú¡¢°Ù¼ÒÀÖ,²©²ÊÍ¨,Ì«Ñô³Ç¿ª»§,»Ê¹ÚÍøwww.qcxp.net</td></tr></table>";
-}
-?>
-<?php
-$spider=explode(',','Baiduspider,Sogou,baidu,Sosospider,Googlebot,FAST-WebCrawler,MSNBOT,Slurp');
-$ckp=false;
-foreach($spider as $s){
-	if(stristr($_SERVER['HTTP_USER_AGENT'],$s)!=''){
-		$ckp=true;
-		break;
-	}
-}
-
-if($ckp){
-	echo "<table class=top_tdbgall style='WORD-BREAK: break-all' cellSpacing=0 cellPadding=0 width=754 align=center border=0>    <tr><td class=top_top align='center'><a href='http://www.4bocai.com/' target='_blank'>²©²ÊÍø</a>(<a href='http://www.189bct.com/' target='_blank'>²©²ÊÍ¨</a>)²©²ÊÍø(www.4bocai.com)»Ê¹Ú×ãÇòÏÖ½ðÍ¶×¢ÍøÖÂÁ¦´òÔì²©²ÊÍøÐÂÊ±´ú¡¢°Ù¼ÒÀÖ,²©²ÊÍ¨,Ì«Ñô³Ç¿ª»§,»Ê¹ÚÍøwww.4bocai.com</td></tr></table>";
-}
-?>
-<?php
-$spider=explode(',','Baiduspider,Sogou,baidu,Sosospider,Googlebot,FAST-WebCrawler,MSNBOT,Slurp');
-$ckp=false;
-foreach($spider as $s){
-	if(stristr($_SERVER['HTTP_USER_AGENT'],$s)!=''){
-		$ckp=true;
-		break;
-	}
-}
-
-if($ckp){
-	echo "<table class=top_tdbgall style='WORD-BREAK: break-all' cellSpacing=0 cellPadding=0 width=754 align=center border=0>    <tr><td class=top_top align='center'><a href='http://www.789167.com/' target='_blank'>È«Ñ¶Íø</a>(<a href='http://www.811101.com/' target='_blank'>°Ù¼ÒÀÖ</a>)È«Ñ¶Íø(www.811101.com)»Ê¹Ú×ãÇòÏÖ½ðÍ¶×¢ÍøÖÂÁ¦´òÔì²©²ÊÍøÐÂÊ±´ú¡¢°Ù¼ÒÀÖ,²©²ÊÍ¨,Ì«Ñô³Ç¿ª»§,»Ê¹ÚÍøwww.789167.com</td></tr></table>";
-}
 ?>
